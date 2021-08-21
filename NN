@@ -1,0 +1,66 @@
+#i= input
+#b= bias
+#w= weight
+#h= hidden
+#o= output
+#XOR input= [1,0] output =1
+#neural network struture 2:2:1
+
+def sigmoid (x): return 1/(1 + np.exp(-x))      # activation function
+def der_sigmoid(x): return x * (1 - x)             # derivative of sigmoid
+
+#standard values
+#two input
+i1=1
+i2=0
+#one output
+o1=1
+#b1 bias for input layer b2 bias for hidden layer
+b1=1
+b2=1
+
+
+#Random initialized weight of input/input-bias to  hidden nodes
+
+#towards h1
+wi1h1=0.3
+wi2h1=0.4
+wb1h1=0.3
+
+#towards h2
+wi1h2=0.4
+wi2h2=0.7
+wb1h2=0.6
+
+#Random initialized wieght  from hidden/hidden-bias to ouptut node
+wh1o1=0.5
+wh2o1=0.1
+wb2o1=0.2
+
+#STEP 1 FEED FORWARDING
+#feed forward to hidden nodes h1 and h2 from input nodes
+
+g1=(i1)*wi1h1+(i2)*wi2h1+(b1)*wb1h1
+print "summation for h1: "+ str(g1)
+h1= sigmoid(g1)
+print "After activation h1: "+ str(h1)
+
+g2=(i1)*wi1h2+(i2)*wi2h2+(b1)*wb2h2
+print "summation for h2: "+ str(g2)
+h2=sigmoid(g2)
+print "After activation h2: "+ str(h2)
+
+#feed forward to output node from hidden nodes
+
+g3=(h1)*wh1o1+(h2)*wh2o1+(b2)*wb2o1
+print "summation for o1: "+ str(g3)
+O=sigmoid(g3)
+print "After activation O: "+ str(O)
+
+#STEP 2: BACKPROPOGATION
+#error /delta
+E=o1-O
+print "Error/Delta: "+ str(E)
+
+dZ= E*der_sigmoid(O)
+print "Delta hidden: "+ str(dZ)
